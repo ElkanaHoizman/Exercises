@@ -1,0 +1,9 @@
+<div class="dvs-form-control" *ngIf="controle">
+  <label [for]="inputId" *ngIf="label" [class.required]="isRequired">{{label}}</label>
+
+  <input [required]="isRequired" [type]="type" [id]="inputId" [formControl]="controle" />
+
+  <app-validation-errors *ngIf="controle.touched" [customErrorMessages]="customErrorMessages"
+    [errors]="controle.errors">
+  </app-validation-errors>
+</div>

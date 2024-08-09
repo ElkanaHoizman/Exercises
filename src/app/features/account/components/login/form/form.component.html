@@ -1,0 +1,17 @@
+<form [formGroup]="loginForm" (ngSubmit)="login()">
+  <!-- <div>
+    <input type="text" placeholder="Email" formControlName="email" />
+
+  </div>
+  <div>
+    <input type="password" placeholder="Password" formControlName="password" />
+  </div> -->
+  <!-- <base-input label="Hello" inputId="myId" formControlName="name">
+  </base-input> -->
+
+  <app-input [customErrorMessages]="errorMessages" label="Email" inputId="email" type="text" formControlName="email"></app-input>
+
+  <app-input [customErrorMessages]="errorMessages" label="Password" inputId="password" type="password" formControlName="password"></app-input>
+  <!-- <button type="submit">Submit</button> -->
+  <base-btn buttonText="Login" [isDisabled]="!loginForm.valid"></base-btn>
+</form>
