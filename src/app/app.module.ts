@@ -5,8 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MatCardModule } from '@angular/material/card';
+import { JwtInterceptor } from './core/interceptor/auth-interceptor.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,14 @@ import { MatCardModule } from '@angular/material/card';
     HttpClientModule,
     MatCardModule,
   ],
-  providers: [provideAnimationsAsync()],
+  providers: [
+    provideAnimationsAsync(),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true,
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

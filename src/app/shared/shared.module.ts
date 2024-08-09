@@ -5,6 +5,7 @@ import { InputComponent } from './ui/components/input/input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ControleValueAccessorDirective } from './ui/directive/controle-value-accessor.directive';
 import { ValidationErrorsComponent } from './ui/components/validation-errors/validation-errors.component';
+import { SelectComponent } from './ui/components/select/select.component';
 
 @NgModule({
   declarations: [
@@ -12,8 +13,9 @@ import { ValidationErrorsComponent } from './ui/components/validation-errors/val
     InputComponent,
     ControleValueAccessorDirective,
     ValidationErrorsComponent,
+    SelectComponent,
   ],
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
-  exports: [ButtonComponent, InputComponent],
+  exports: [ButtonComponent, InputComponent, SelectComponent],
 })
 export class SharedModule {}

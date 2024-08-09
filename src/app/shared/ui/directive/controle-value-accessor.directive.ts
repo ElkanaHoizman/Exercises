@@ -47,7 +47,6 @@ export class ControleValueAccessorDirective<T>
   }
   writeValue(value: T): void {
     this.controle ? this.controle.setValue(value) : new FormControl(value);
-    console.log('this.controle', this.controle);
   }
   registerOnChange(fn: (val: T | null) => T): void {
     this.controle?.valueChanges

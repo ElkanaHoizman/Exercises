@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Character } from '../models/Character';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../../environments/environment.prod';
 
 const API_PUBLIC_KEY = '&apikey=ce18a55e03c5e02cd9ff7c4768a50692';
 const TIME_OUT = '&ts=1';
@@ -25,7 +26,9 @@ export class CharactersService {
   // }
   setCharacters(word: string, offset?: Number): Observable<any> {
     return this._http.get<any>(
-      `${RUTA_BASE}${PERSONAJES}${word}${TIME_OUT}${API_PUBLIC_KEY}${HASH_md5}${LIMIT}&offset=${
+      `${
+        environment.apiUrl
+      }${PERSONAJES}${word}${TIME_OUT}${API_PUBLIC_KEY}${HASH_md5}${LIMIT}&offset=${
         offset || OFFSET
       }`,
       { headers: headersjson }

@@ -1,17 +1,13 @@
 <form [formGroup]="loginForm" (ngSubmit)="login()">
-  <!-- <div>
-    <input type="text" placeholder="Email" formControlName="email" />
-
-  </div>
-  <div>
-    <input type="password" placeholder="Password" formControlName="password" />
-  </div> -->
-  <!-- <base-input label="Hello" inputId="myId" formControlName="name">
-  </base-input> -->
-
-  <app-input [customErrorMessages]="errorMessages" label="Email" inputId="email" type="text" formControlName="email"></app-input>
-
-  <app-input [customErrorMessages]="errorMessages" label="Password" inputId="password" type="password" formControlName="password"></app-input>
-  <!-- <button type="submit">Submit</button> -->
+  <app-input [customErrorMessages]="errorMessages" label="Email" inputId="email" type="text"
+    formControlName="email"></app-input>
+  <app-input [customErrorMessages]="errorMessages" label="Password" inputId="password" type="password"
+    formControlName="password"></app-input>
+  <app-input [customErrorMessages]="errorMessages" label="Username" inputId="username" type="text"
+    formControlName="username"></app-input>
   <base-btn buttonText="Login" [isDisabled]="!loginForm.valid"></base-btn>
 </form>
+
+
+<!-- <app-select [customErrorMessages]="errorMessages" label="Hello" selectId="myId" [options]="['1', '2', '3']"
+  [formControl]="age"></app-select> -->

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './core/components/page-not-found/page-not-found.component';
+import { AuthGuard } from './core/guard/auth-guard.guard';
 
 const routes: Routes = [
   {
@@ -13,12 +14,11 @@ const routes: Routes = [
   {
     path: 'login',
     loadChildren: () =>
-      import('./features/account/account.module').then(
-        (m) => m.AccountModule
-      ),
+      import('./features/account/account.module').then((m) => m.AccountModule),
   },
   {
     path: 'characters',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./features/characters/characters.module').then(
         (m) => m.CharactersModule
@@ -26,12 +26,14 @@ const routes: Routes = [
   },
   {
     path: 'comics',
+    canActivate: [AuthGuard],
     loadChildren: () =>
       import('./features/characters/characters.module').then(
         (m) => m.CharactersModule
       ),
   },
   {
+    canActivate: [AuthGuard],
     path: '**',
     component: PageNotFoundComponent,
   },

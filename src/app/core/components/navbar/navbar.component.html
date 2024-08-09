@@ -1,7 +1,17 @@
-<mat-toolbar color="primary">
-  <!-- <span>User Management</span> -->
-  <div class="spacer"></div>
-  <a mat-button routerLink="/characters">Characters</a>
-  <a mat-button routerLink="/add">About</a>
-  <a mat-button routerLink="/">Contact</a>
+<mat-toolbar color="primary" class="navbar">
+
+  <div class="user" *ngIf="user$ | async as user ; else login">
+    <p *ngIf=" user?.firstName">{{ user.firstName }} {{ user.lastName }}</p>
+    <base-btn buttonText="logout" (buttonClick)="logout($event)"></base-btn>
+  </div>
+
+  <ng-template #login>
+    <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
+  </ng-template>
+  <!-- user$ | async as user ; else login -->
+  <div class="links">
+    <a mat-button routerLink="/characters">Characters</a>
+    <a mat-button routerLink="/add">About</a>
+    <a mat-button routerLink="/">Contact</a>
+  </div>
 </mat-toolbar>
