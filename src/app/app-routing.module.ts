@@ -18,7 +18,7 @@ const routes: Routes = [
   },
   {
     path: 'characters',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     loadChildren: () =>
       import('./features/characters/characters.module').then(
         (m) => m.CharactersModule

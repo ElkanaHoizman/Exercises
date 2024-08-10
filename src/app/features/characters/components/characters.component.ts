@@ -17,34 +17,41 @@ import {
   EMPTY,
   filter,
   finalize,
+  from,
   fromEvent,
   map,
   mergeAll,
   mergeMap,
   Observable,
+  of,
+  startWith,
   Subject,
   Subscription,
   switchMap,
   tap,
 } from 'rxjs';
 import { Character, Thumbnail } from '../models/Character';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-characters',
   templateUrl: './characters.component.html',
-  styleUrl: './characters.component.css',
+  styleUrl: './characters.component.scss',
 })
 export class CharactersComponent implements AfterViewInit, OnDestroy {
   @ViewChild('filter') filter?: ElementRef;
   product$ = new Subject<Character[] | null>();
   searchTerms = new Subject<string>();
-  results$?: Observable<any> = EMPTY;
+  results$?: Observable<Character[] | null> = EMPTY;
   subscription?: Subscription;
 
   characters: Array<Character> = [];
+
   total: number = 0;
-  word: string = 'Z';
   isLoding: boolean = false;
+
+  myControl = new FormControl();
+
   // characters$: Observable<Character[] | null> =
   //   this._charactersService.getCharacters();
 
@@ -52,17 +59,59 @@ export class CharactersComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     // this.getCharacters();
+
+    this.results$ = this.myControl.valueChanges.pipe(
+      filter((term) => term.length >= 2 && !this.isLoding),
+      debounceTime(1000),
+      distinctUntilChanged(),
+      switchMap((data: string) => this.getData(data))
+    );
   }
   search(e: Event): void {
     let q = (e.target as HTMLInputElement).value;
+    if (!q) this.init();
 
-    console.log('e', q);
+    // this.results$ = of(q).pipe(
+    //   filter((term) => term.length >= 2 && !this.isLoding),
+    //   debounceTime(1000),
+    //   distinctUntilChanged(),
+    //   switchMap((data: string) => this.getData(data))
+    // );
+    // .subscribe((data) => {
+    //   this.characters = data;
+    // });
+
     // const searchText = val;
     // this.characters = [];
     // this.searchTerms.next(searchText);
   }
 
-  getCharacters(offset?: number) {
+  getData(val: string): Observable<any> {
+    this.isLoding = true;
+
+    return this._charactersService.setCharacters(val).pipe(
+      filter((characters) => {
+        return characters?.data?.count;
+      }),
+      map((data) => data?.data.results)
+    );
+  }
+  init() {
+    this.characters = [];
+    this.isLoding = false;
+  }
+
+  getCharacters(offset?: number): any {
+    // this.characters = this.filter?.nativeElement.pipe(
+    //   startWith(''),
+    //   debounceTime(400),
+    //   distinctUntilChanged(),
+    //   switchMap((val: any) => {
+    //     debugger;
+    //     of(1);
+    //     return val;
+    //   })
+    // );
     // this.subscription = fromEvent<KeyboardEvent>(
     //   this.filter?.nativeElement,
     //   'keyup'

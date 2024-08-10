@@ -16,3 +16,10 @@ body {
   display: block;
   margin: 24px;
 }
+
+router-outlet+* {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 25px;
+}

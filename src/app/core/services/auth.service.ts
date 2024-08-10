@@ -22,7 +22,6 @@ export class AuthService {
     this.userSubject = new BehaviorSubject(
       JSON.parse(localStorage.getItem('user')!)
     );
-    debugger;
     this.user = this.userSubject.asObservable();
   }
 

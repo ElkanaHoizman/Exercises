@@ -1,11 +1,14 @@
 <div class="container">
   <input type="text" #filter (keyup)="search($event)">
+
+  <input placeholder="formControl" type="text" [formControl]="myControl">
+
   <!-- <button (click)="loadMore()">un</button> -->
 
-  <ng-container *ngIf="isLoding">
+  <!-- <ng-container *ngIf="isLoding">
     <mat-spinner></mat-spinner>
   </ng-container>
-  <ng-container *ngIf="characters.length  ;else noResults">
+  <div *ngIf="characters.length  ;else noResults" class="wrapper">
 
     <mat-card appearance="outlined" *ngFor="let item of characters">
       <mat-card-title> {{item?.name}}</mat-card-title>
@@ -17,8 +20,23 @@
 
       </mat-card-content>
     </mat-card>
-  </ng-container>
+  </div>
   <ng-template #noResults>
-    no results
-  </ng-template>
+    <div *ngIf="!isLoding">
+      no results
+
+    </div>
+  </ng-template> -->
+
+
+  <mat-card appearance="outlined" *ngFor="let item of results$ |async">
+    <mat-card-title> {{item?.name}}</mat-card-title>
+    <mat-card-subtitle> {{item?.id}}</mat-card-subtitle>
+
+    <mat-card-content>
+      <span>{{item?.description}}</span>
+      <img [src]="getCharacterImage(item.thumbnail)!" width="464" height="261" alt="photo of {{item?.name}}" />
+
+    </mat-card-content>
+  </mat-card>
 </div>
