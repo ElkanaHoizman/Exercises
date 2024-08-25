@@ -22,10 +22,12 @@
       "ES2022",
       "dom"
     ],
-    // "baseUrl": "./",
-    // "paths": {
-    //   "@ui/*":["src/app/shared/*"]
-    // }
+    "baseUrl": "./",
+    "paths": {
+      // "@ui/*":["src/app/shared/*"]
+
+      "@styles/*":["src/styles/*"]
+    }
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

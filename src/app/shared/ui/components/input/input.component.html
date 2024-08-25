@@ -1,7 +1,12 @@
 <div class="dvs-form-control" *ngIf="controle">
-  <label [for]="inputId" *ngIf="label" [class.required]="isRequired">{{label}}</label>
+  <mat-form-field class="full-width">
+    <mat-label *ngIf="label" [class.required]="isRequired">{{label}}</mat-label>
 
-  <input [required]="isRequired" [type]="type" [id]="inputId" [formControl]="controle" />
+    <!-- <label [for]="inputId" *ngIf="label" [class.required]="isRequired">{{label}}</label> -->
+
+    <!-- <input [required]="isRequired" [type]="type" [id]="inputId" [formControl]="controle" /> -->
+    <input matInput [required]="isRequired" [type]="type" [id]="inputId" [formControl]="controle">
+  </mat-form-field>
 
   <app-validation-errors *ngIf="controle.touched" [customErrorMessages]="customErrorMessages"
     [errors]="controle.errors">
